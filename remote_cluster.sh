@@ -1,1 +1,1 @@
-kubectl config use-context allowing-antelope.platform.testing.opengov.zone
+kubectl config use-context <remote cluster>
