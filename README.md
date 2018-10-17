@@ -1,21 +1,24 @@
 # Multi k8s clusters development
-Below is described how to facilitate multicluster development.
+
+Below is described how to facilitate multicluster development in kubernetes.
 
 ## Prerequisities
+
 1. Install 13-alpha1 kubectl client binary:
 ```
 chmod +x ./kubectl_client/kubectl; sudo mv ./kubectl_client/kubectl /usr/local/bin/kubectl
 ```
 2. Install [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) depending on your OS:
 
-3. Optional to use [Skaffold](https://github.com/GoogleContainerTools/skaffold) project, to facilitate continuous development.
+3. Optionally can use [Skaffold](https://github.com/GoogleContainerTools/skaffold) project, to facilitate continuous development.
 
 
 ## Architecture
 The diagram below depicts how enable multi cluster development in k8s:
-![Alt text](images/architecture.png?raw=true "Coming soon")
+![Alt text](images/architecture.png?raw=true "OpenGov")
 
 ## Getting Started
+
 1. Deploy backend application in remote cluster:
 ```
 ./remote_cluster.sh
@@ -45,7 +48,8 @@ kubectl port-forward $(kubectl get pod -l type=fe-type -o jsonpath='{.items[0].m
 ```
 curl http://localhost:3000/
 ```
-## Uninstall
+### Uninstall
+
 1. Remove any kubectl port-forward processes that may still be running:
 ```
 killall kubectl
@@ -56,22 +60,24 @@ killall kubectl
 ./remote_cluster.sh
 kubectl delete -f backend.yaml
 ```
-3. Deploy fronted application in minikube cluster:
+
+3. Deploy frontend application in minikube cluster:
 ```
 ./minikube.sh
 kubectl delete -f frontend.yaml
 ```
 
 ## References
-Being on top means, using hot pulls!:
+
 https://github.com/kubernetes/kubernetes/pull/46517/commits/4643c6e95e0a0cf6561554fb3b9a1bc59bcead0c
 
-Need 13-alpha1 for kubectl client:
 https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#client-binaries
 
 
 ## Authors
+
 [Opengov](https://opengov.com) Devops team.
 
 ## Acknowledgments
-Thanks to [Kube-downscaler](https://github.com/salrashid123/kubehelloworld) project authored by [Sal Rashid](https://github.com/salrashid123).
+
+Thanks to [Kubehelloworld)](https://github.com/salrashid123/kubehelloworld) project authored by [Sal Rashid](https://github.com/salrashid123).
