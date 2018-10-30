@@ -1,14 +1,14 @@
 # Multi k8s clusters development
 
-### Motivation
+### Goal
 
-What is the best approach to proxy traffic from developer laptop to services running in remote cluster:
+Find the best approach to proxy traffic from developer laptop to services running in remote cluster:
 
 - [ ] Little or no configuration change in application side
 - [ ] No proxy maintenance
 - [ ] Faster development process
 
-### Current Development Work Flow
+## Current Development Work Flow
 
 Below is usual software development process for applications running inside containers and deployed in kubernetes cluster:
 
@@ -18,13 +18,16 @@ Below is usual software development process for applications running inside cont
 4. Redeploy application in kubernetes to use new image
 5. Wait for the image to download and start service
 
+![Alt text](images/asis.png?raw=true "OpenGov")
 
 As we can see, for any small changes in application code, we need to reiterate the cycle which is time-consuming and not convenient. 
 
-### Using Port-forwarding 
+## Using Port-forwarding 
 
 Using Port-forwarding feature in Kubernetes, deploy frontend in minikube cluster, and backend in remote cluster.
 For detailed sample application use case, please follow [tutorial](portforwarding.md).
+
+![Alt text](images/portforward.png?raw=true "OpenGov")
 
 #### Advantages
 
@@ -43,9 +46,9 @@ For detailed sample application use case, please follow [tutorial](portforwardin
 * Each backend service needs to be port-forwarded
 * UDP not supported, only TCP
 
-### Using Telepresence
+## Using Telepresence
 
-Open source project developed by Datawire and contributed to CNCF.  Telepresence works by building a two-way network proxy (bootstrapped using kubectl port-forward).
+[Telepresence](https://github.com/telepresenceio/telepresence) is an open source project developed by Datawire and contributed to CNCF.  Telepresence works by building a two-way network proxy (bootstrapped using kubectl port-forward).
 
 Telepresence works by running code locally, as a normal local process, and then forwarding requests to/from the Kubernetes cluster.
 
@@ -58,7 +61,7 @@ a) VPN - Uses a program called sshuttle to open a VPN-like connection to the K
 * FQDN like services yourservice.default.svc.cluster.local won't resolve correctly on Linux
 * Service endpoints like yourservice and yourservice.default will resolve correctly
 
-b) Inject-TCP - By default this method is used. Injects shared library into the subprocess and  can run more than one telepresence connection, not works with:\
+b) Inject-TCP - By default this method is used. Injects shared library into the subprocess and  can run more than one telepresence connection, not works with:
 * statically linked libraries
 * suid binaries in telepresence shell
 * custom DNS resolvers that parse "/etc/resolv.conf" and do DNS lookups themselves

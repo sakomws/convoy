@@ -26,7 +26,7 @@ Sample application that shows how to connect a frontend system with a backend in
 kubectl apply -f backend.yaml
 ```
 
-2. Make sure be-* pod and service are up and running :
+2. Make sure backend-* pod and service are up and running :
 ```
 kubectl get pods,svc
 ```
