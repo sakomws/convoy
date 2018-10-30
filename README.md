@@ -1,109 +1,126 @@
 # Multi k8s clusters development
 
-Below is described how to facilitate application development in running in kubernetes.
+### Motivation
 
-## Prerequisities
+What is the best approach to proxy traffic from developer laptop to services running in remote cluster:
 
-1. Install 1.13 release of kubectl client:
-```
-chmod +x ./kubectl_client/kubectl; sudo mv ./kubectl_client/kubectl /usr/local/bin/kubectl
-```
-2. Install [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) depending on your OS:
+- [ ] Little or no configuration change in application side
+- [ ] No proxy maintenance
+- [ ] Faster development process
 
-3. Optionally can use [Skaffold](https://github.com/GoogleContainerTools/skaffold) project, to facilitate continuous development.
+### Current Development Work Flow
 
-## Architecture
-The diagram below depicts how enable multi cluster development in k8s:
-![Alt text](images/architecture.png?raw=true "OpenGov")
+Below is usual software development process for applications running inside containers and deployed in kubernetes cluster:
 
-## Getting Started
+1. Change source code
+2. Build a Docker image
+3. Push the Docker image to a Docker registry
+4. Redeploy application in kubernetes to use new image
+5. Wait for the image to download and start service
 
-Sample application that shows how to connect a frontend system (fe) with a backend (be) in different clusters.
 
-### Remote Cluster
+As we can see, for any small changes in application code, we need to reiterate the cycle which is time-consuming and not convenient. 
 
-1. Deploy backend application in remote cluster:
-```
-./remote_cluster.sh
-kubectl apply -f backend.yaml
-```
+### Using Port-forwarding 
 
-2. Make sure be-* pod and service are up and running :
-```
-kubectl get pods,svc
-```
-```
-NAME                          READY   STATUS    RESTARTS   AGE
-pod/be-rc-czn64               1/1     Running   1          7d5h
+Using Port-forwarding feature in Kubernetes, deploy frontend in minikube cluster, and backend in remote cluster.
+For detailed sample application use case, please follow [tutorial](portforwarding.md).
 
-NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-service/be-srv       ClusterIP   100.70.181.149   <none>        5000/TCP   7d5h
-```
+#### Advantages
 
-3. Forward the backend service to localhost:
-```
-kubectl port-forward --address=192.168.99.1 $(kubectl get pod -l type=be-type -o jsonpath='{.items[0].metadata.name}') 2000:5000 &
-```
-4. Check backend service via browser or curl:
-```
-curl http://192.168.99.1:2000/
-```
+* Only Minikube install in developer machine
+* No any install in remote cluster
+* Isolated from developer host OS
+* Little or no difference in environments applications run
+* Seamless proxy between Minikube and remote cluster
+* Can forward traffic to pod, deployment, replica-set and service
 
-### Minikube
+#### Disadvantages
 
-1. Deploy fronted application in minikube cluster:
-```
-./minikube.sh
-kubectl apply -f frontend.yaml
-```
-2. Make sure fe-* pod and service are up and running :
-```
-kubectl get pods,svc
-```
-```
-NAME                                            READY   STATUS    RESTARTS   AGE
-pod/fe-rc-dlghf                                 1/1     Running   1          11h
+* Not stable, frequent connection lost to pod
+* When the pod restarts, the tunnel breaks
+* Load on host OS, due to Minikube running
+* Each backend service needs to be port-forwarded
+* UDP not supported, only TCP
 
-NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-service/fe-srv       ClusterIP   10.97.237.77     <none>        8080/TCP       11h
-```
+### Using Telepresence
 
-3. Forward the frontend service to localhost:
-```
-kubectl port-forward $(kubectl get pod -l type=fe-type -o jsonpath='{.items[0].metadata.name}') 3000:8080 &
-```
-4. Check frontend service is up and can forward requests to backend:
-```
-curl http://localhost:3000/
-```
+Open source project developed by Datawire and contributed to CNCF.  Telepresence works by building a two-way network proxy (bootstrapped using kubectl port-forward).
 
-### Uninstall
+Telepresence works by running code locally, as a normal local process, and then forwarding requests to/from the Kubernetes cluster.
 
-1. Remove any kubectl port-forward processes that may still be running:
-```
-killall kubectl
-```
+There are 3 proxying methods in Telepresence:
 
-2. Uninstall backend application in remote cluster:
-```
-./remote_cluster.sh
-kubectl delete -f backend.yaml
-```
+a) VPN - Uses a program called sshuttle to open a VPN-like connection to the Kubernetes cluster. Works best with Go language, limitations are:
+* Cannot work on top of other VPNs
+* Can run only 1 telepresence connection per machine
+* Cloud resources like AWS RDS will not be routed automatically. Need to specify the hosts manually using --also-proxy, e.g. --also-proxy mydatabase.somewhere.vpc.aws.amazon.com to route traffic to that host via the Kubernetes cluster
+* FQDN like services yourservice.default.svc.cluster.local won't resolve correctly on Linux
+* Service endpoints like yourservice and yourservice.default will resolve correctly
 
-3. Deploy frontend application in minikube cluster:
-```
-./minikube.sh
-kubectl delete -f frontend.yaml
-```
+b) Inject-TCP - By default this method is used. Injects shared library into the subprocess and  can run more than one telepresence connection, not works with:\
+* statically linked libraries
+* suid binaries in telepresence shell
+* custom DNS resolvers that parse "/etc/resolv.conf" and do DNS lookups themselves
 
-## References
+c) Docker - ideal for container-native development. New proxy container will start, and then call docker run with arguments passed to --docker-run to start a container that will have its networking proxied. All networking is proxied:
+* Outgoing to Kubernetes
+* Outgoing to cloud resources like AWS RDS added manually with --also-proxy
+* Incoming connections to ports specified with --expose
+* Volumes and environment variables from the remote Deployment are also available in the container
 
-[PR46517](https://github.com/kubernetes/kubernetes/pull/46517/commits/4643c6e95e0a0cf6561554fb3b9a1bc59bcead0c) to enable binding port-forwarding to different IP in localhost.
 
-[Kubectl Client 1.13](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#client-binaries) artifact repository.
+Below are 5 possible use cases with Telepresence:
 
-[Kubehelloworld Sample application](https://github.com/salrashid123/kubehelloworld) project authored by [Sal Rashid](https://github.com/salrashid123).
+1. Run dev-frontend as a service in localhost and frontend, backend as containers in remote cluster without any user impact:
+For detailed sample application use case, please follow tutorial in [tutorial](telepresence_use_case_01.md).
 
-## Authors
+![Alt text](images/telepresence_use_case_01.png?raw=true "OpenGov")
+
+2. Create new service as a container in remote cluster and forward to service in localhost:
+For detailed sample application use case, please follow tutorial in [tutorial](uc2.md).
+
+![Alt text](images/telepresence_use_case_01.png?raw=true "OpenGov")
+
+3. Swap service as a container in remote cluster with service in localhost:
+For detailed sample application use case, please follow tutorial in [tutorial](uc3.md).
+
+![Alt text](images/telepresence_use_case_03.png?raw=true "OpenGov")
+
+4. Swap service as a container in remote cluster with service as a container in localhost:
+For detailed sample application use case, please follow tutorial in [tutorial](uc4.md).
+
+![Alt text](images/telepresence_use_case_04.png?raw=true "OpenGov")
+
+5. Swap service_A in remote cluster with service in localhost_A and service_B in remote cluster with service in localhost_B :
+For detailed sample application use case, please follow tutorial in [tutorial](uc5.md).
+
+
+#### Advantages
+
+* Fast local development
+* Simple local setup
+* Full access to other services in the remote cluster
+* Full access to Kubernetes environment variables, secrets, and ConfigMap
+* Full access to local service from remote services
+* Do live coding/debugging in a remote Kubernetes cluster
+
+#### Disadvantages
+
+* Additional cost for cloud resources
+* Shared environment
+* Configure proxy or VPN can be complex
+* UDP not supported, only TCP
+
+#### Recommendation
+
+Telepresence is preferred way for development. It is stable, cross-platform, works with any program and transparent to application. 
+
+#### References
+
+[Kubehelloworld](https://github.com/salrashid123/kubehelloworld) project authored by Sal Rashid.
+
+
+#### Authors
 
 [Opengov](https://opengov.com) Devops team.

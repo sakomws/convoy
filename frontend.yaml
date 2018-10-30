@@ -1,8 +1,8 @@
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
-  name: fe-rc
+  name: frontend
   labels:
     type: fe-type
 spec:
@@ -14,16 +14,16 @@ spec:
     spec:
       containers:
       - name: fe-container
-        image: salrashid123/fe
+        image: sakomws/frontend
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
           protocol: TCP
         env:
         - name: BE_SRV_SERVICE_HOST
-          value: "192.168.99.1"
+          value: backend-srv.default.svc.cluster.local
         - name: BE_SRV_SERVICE_PORT
-          value: "2000"
+          value: "80"
 
         - name: POD_NAME
           valueFrom:
@@ -37,15 +37,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fe-srv
+  name: frontend-srv
   labels:
     type: fe-type
 spec:
   type: ClusterIP
   ports:
   - name: fe
-    port: 8080
+    port: 8000
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8000
   selector:
     type: fe-type
