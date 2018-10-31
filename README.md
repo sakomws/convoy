@@ -83,7 +83,7 @@ For detailed sample application use case, please follow tutorial in [tutorial](t
 2. Create new service as a container in remote cluster and forward to service in localhost:
 For detailed sample application use case, please follow tutorial in [tutorial](uc2.md).
 
-![Alt text](images/telepresence_use_case_01.png?raw=true "OpenGov")
+![Alt text](images/telepresence_use_case_02.png?raw=true "OpenGov")
 
 3. Swap service as a container in remote cluster with service in localhost:
 For detailed sample application use case, please follow tutorial in [tutorial](uc3.md).
