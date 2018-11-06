@@ -1,7 +1,7 @@
 
 # Use case 01
 
-This use case shows how  to facilitate local frontend development with backend run in remote cluster without any user impact.
+This use case shows how  to facilitate local development with services running in remote cluster.
 
 ### Prerequisities
 
@@ -23,7 +23,7 @@ The diagram below depicts how to enable multi cluster development in k8s:
 
 ### Getting Started
 
-Sample application that shows how to connect a frontend in development with a production backend run in remote cluster.
+Sample application that shows how to connect a frontend in development with a backend running in remote cluster.
 
 #### Remote Cluster or Minikube
 

@@ -1,0 +1,325 @@
+   0.0 TEL | Telepresence 0.93 launched at Fri Nov  2 14:50:33 2018
+   0.0 TEL |   /usr/local/bin/telepresence --namespace convox --run-shell
+   0.0 TEL | Platform: darwin
+   0.0 TEL | Python 3.7.0 (default, Sep 18 2018, 18:47:22)
+   0.0 TEL | [Clang 9.1.0 (clang-902.0.39.2)]
+   0.0 TEL | [1] Running: uname -a
+   0.0   1 | Darwin OSX-0485.local 17.7.0 Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64 x86_64
+   0.0 TEL | BEGIN SPAN main.py:41(main)
+   0.0 TEL | BEGIN SPAN startup.py:58(__init__)
+   0.0 TEL | [2] Capturing: kubectl version --short
+   0.3 TEL | [3] Capturing: kubectl config current-context
+   0.3 TEL | [4] Capturing: kubectl config view -o json
+   0.4 TEL | [5] Capturing: kubectl get ns convox
+   0.8 TEL | Command: kubectl 1.10.8
+   0.8 TEL | Context: allowing-antelope.platform.testing.opengov.zone, namespace: convox, version: 1.9.1
+   0.8 TEL | END SPAN startup.py:58(__init__)    0.7s
+   0.8 TEL | [6] Capturing: ssh -V
+   0.8 TEL | [7] Running: sudo -n echo -n
+   0.8 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.8 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.8 TEL | [8] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pods telepresence-connectivity-check --ignore-not-found
+   1.6 TEL | Scout info: {'latest_version': '0.93', 'application': 'telepresence', 'notices': []}
+   1.6 TEL | BEGIN SPAN deployment.py:44(create_new_deployment)
+   1.6 TEL | [9] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox delete --ignore-not-found svc,deploy --selector=telepresence=75fff44fd92647339c2a68eb71a202e8
+   1.9 TEL | [10] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox run --restart=Always --limits=cpu=100m,memory=256Mi --requests=cpu=25m,memory=64Mi telepresence-1541195433-32362-10622 --image=datawire/telepresence-k8s:0.93 --labels=telepresence=75fff44fd92647339c2a68eb71a202e8
+   2.3 TEL | END SPAN deployment.py:44(create_new_deployment)    0.7s
+   2.3 TEL | BEGIN SPAN remote.py:149(get_remote_info)
+   2.3 TEL | BEGIN SPAN remote.py:73(get_deployment_json)
+   2.3 TEL | [11] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get deployment -o json --export --selector=telepresence=75fff44fd92647339c2a68eb71a202e8
+   2.6 TEL | END SPAN remote.py:73(get_deployment_json)    0.3s
+   2.6 TEL | Searching for Telepresence pod:
+   2.6 TEL |   with name telepresence-1541195433-32362-10622-*
+   2.6 TEL |   with labels {'telepresence': '75fff44fd92647339c2a68eb71a202e8'}
+   2.6 TEL | [12] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod -o json --export --selector=telepresence=75fff44fd92647339c2a68eb71a202e8
+   2.9 TEL | Checking telepresence-1541195433-32362-10622-658dccbb75-v72hz
+   2.9 TEL | Looks like we've found our pod!
+   2.9 TEL | BEGIN SPAN remote.py:111(wait_for_pod)
+   2.9 TEL | [13] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   3.3 TEL | [14] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   3.9 TEL | [15] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   4.4 TEL | [16] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   5.0 TEL | [17] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   5.5 TEL | [18] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   6.1 TEL | [19] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   6.6 TEL | [20] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   7.1 TEL | [21] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   7.6 TEL | [22] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   8.2 TEL | [23] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox get pod telepresence-1541195433-32362-10622-658dccbb75-v72hz -o json
+   8.5 TEL | END SPAN remote.py:111(wait_for_pod)    5.6s
+   8.5 TEL | END SPAN remote.py:149(get_remote_info)    6.1s
+   8.5 TEL | BEGIN SPAN __init__.py:38(connect)
+   8.5 TEL | [24] Launching kubectl logs: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox logs -f telepresence-1541195433-32362-10622-658dccbb75-v72hz --container telepresence-1541195433-32362-10622
+   8.5 TEL | [25] Launching kubectl port-forward: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox port-forward telepresence-1541195433-32362-10622-658dccbb75-v72hz 56790:8022
+   8.5 TEL | [26] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 56790 telepresence@localhost /bin/true
+   8.5 TEL | [26] exit 255 in 0.02 secs.
+   8.8 TEL | [27] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 56790 telepresence@localhost /bin/true
+   8.8 TEL | [27] exit 255 in 0.02 secs.
+   9.0  25 | Forwarding from 127.0.0.1:56790 -> 8022
+   9.0  25 | Forwarding from [::1]:56790 -> 8022
+   9.0 TEL | [28] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 56790 telepresence@localhost /bin/true
+   9.0  25 | Handling connection for 56790
+   9.5 >>> | 
+   9.5 >>> | No traffic is being forwarded from the remote Deployment to your local machine. You can use the --expose option to specify which ports you want to forward.
+   9.5 >>> | 
+   9.5 TEL | Launching Web server for proxy poll
+   9.5 TEL | [29] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 56790 telepresence@localhost -L127.0.0.1:56801:127.0.0.1:9050 -R9055:127.0.0.1:56802
+   9.5 TEL | END SPAN __init__.py:38(connect)    1.0s
+   9.5 TEL | BEGIN SPAN remote_env.py:65(get_remote_env)
+   9.5 TEL | [30] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox exec telepresence-1541195433-32362-10622-658dccbb75-v72hz --container telepresence-1541195433-32362-10622 -- python3 -c 'import json, os; print(json.dumps(dict(os.environ)))'
+   9.5  25 | Handling connection for 56790
+  11.3 TEL | [30] captured in 1.80 secs.
+  11.3 TEL | END SPAN remote_env.py:65(get_remote_env)    1.8s
+  11.3 TEL | BEGIN SPAN mount.py:32(mount_remote_volumes)
+  11.3 TEL | [31] Capturing: sshfs -p 56790 -F /dev/null -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null telepresence@localhost:/ /tmp/tel-bxn90xtw/fs
+  11.4  25 | Handling connection for 56790
+  11.8 TEL | END SPAN mount.py:32(mount_remote_volumes)    0.5s
+  11.8 TEL | BEGIN SPAN vpn.py:235(connect_sshuttle)
+  11.8 TEL | BEGIN SPAN vpn.py:79(get_proxy_cidrs)
+  11.8 TEL | END SPAN vpn.py:79(get_proxy_cidrs)    0.0s
+  11.8 TEL | [32] Launching sshuttle: sshuttle-telepresence -v --dns --method auto -e 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -F /dev/null' --to-ns 127.0.0.1:9053 -r telepresence@localhost:56790 100.64.0.0/13 100.96.78.0/24 100.96.76.0/24 100.96.1.0/24 100.96.0.0/24 100.96.79.0/24 100.96.73.0/24 100.96.75.0/24 100.96.77.0/24 100.96.80.0/24 100.96.82.0/24 100.96.27.0/24 100.96.83.0/24
+  11.9 TEL | BEGIN SPAN vpn.py:276(connect_sshuttle,sshuttle-wait)
+  11.9 TEL | [33] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence0'"'"')'
+  11.9  33 | Traceback (most recent call last):
+  11.9  33 |   File "<string>", line 1, in <module>
+  11.9  33 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  11.9 TEL | [33] exit 1 in 0.05 secs.
+  12.0 TEL | [34] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence1'"'"')'
+  12.0  34 | Traceback (most recent call last):
+  12.0  34 |   File "<string>", line 1, in <module>
+  12.0  34 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.0 TEL | [34] exit 1 in 0.05 secs.
+  12.1 TEL | [35] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence2'"'"')'
+  12.2  35 | Traceback (most recent call last):
+  12.2  35 |   File "<string>", line 1, in <module>
+  12.2  35 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.2 TEL | [35] exit 1 in 0.05 secs.
+  12.3  32 | Starting sshuttle proxy.
+  12.3 TEL | [36] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence3'"'"')'
+  12.3  36 | Traceback (most recent call last):
+  12.3  36 |   File "<string>", line 1, in <module>
+  12.3  36 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.3 TEL | [36] exit 1 in 0.05 secs.
+  12.4 TEL | [37] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence4'"'"')'
+  12.5  37 | Traceback (most recent call last):
+  12.5  37 |   File "<string>", line 1, in <module>
+  12.5  37 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.5 TEL | [37] exit 1 in 0.05 secs.
+  12.6 TEL | [38] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence5'"'"')'
+  12.6  38 | Traceback (most recent call last):
+  12.6  38 |   File "<string>", line 1, in <module>
+  12.6  38 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.6 TEL | [38] exit 1 in 0.04 secs.
+  12.7  32 | firewall manager: Starting firewall with Python version 3.7.0
+  12.7  32 | firewall manager: ready method name pf.
+  12.7  32 | IPv6 enabled: True
+  12.7  32 | UDP enabled: False
+  12.7  32 | DNS enabled: True
+  12.7  32 | TCP redirector listening on ('::1', 12300, 0, 0).
+  12.7  32 | TCP redirector listening on ('127.0.0.1', 12300).
+  12.7  32 | DNS listening on ('::1', 12300, 0, 0).
+  12.7  32 | DNS listening on ('127.0.0.1', 12300).
+  12.7  32 | Starting client with Python version 3.7.0
+  12.7  32 | c : connecting to server...
+  12.7 TEL | [39] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence6'"'"')'
+  12.8  25 | Handling connection for 56790
+  12.8  39 | Traceback (most recent call last):
+  12.8  39 |   File "<string>", line 1, in <module>
+  12.8  39 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.8 TEL | [39] exit 1 in 0.05 secs.
+  12.9 TEL | [40] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence7'"'"')'
+  12.9  40 | Traceback (most recent call last):
+  12.9  40 |   File "<string>", line 1, in <module>
+  12.9  40 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  12.9 TEL | [40] exit 1 in 0.05 secs.
+  13.0  32 | Warning: Permanently added '[localhost]:56790' (ECDSA) to the list of known hosts.
+  13.0 TEL | [41] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence8'"'"')'
+  13.1  41 | Traceback (most recent call last):
+  13.1  41 |   File "<string>", line 1, in <module>
+  13.1  41 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.1 TEL | [41] exit 1 in 0.05 secs.
+  13.2 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence9'"'"')'
+  13.2  24 | Listening...
+  13.2  24 | 2018-11-02T21:50:45+0000 [-] Loading ./forwarder.py...
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] /etc/resolv.conf changed, reparsing
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] Resolver added ('100.64.0.10', 53) to server list
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] SOCKSv5Factory starting on 9050
+  13.2  24 | 2018-11-02T21:50:46+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7f5bf0a965c0>
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] DNSDatagramProtocol starting on 9053
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f5bf0a96978>
+  13.2  24 | 2018-11-02T21:50:46+0000 [-] Loaded.
+  13.2  24 | 2018-11-02T21:50:46+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 18.7.0 (/usr/bin/python3.6 3.6.5) starting up.
+  13.2  24 | 2018-11-02T21:50:46+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+  13.2  42 | Traceback (most recent call last):
+  13.2  42 |   File "<string>", line 1, in <module>
+  13.2  42 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.2 TEL | [42] exit 1 in 0.05 secs.
+  13.3 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence10'"'"')'
+  13.4  43 | Traceback (most recent call last):
+  13.4  43 |   File "<string>", line 1, in <module>
+  13.4  43 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.4 TEL | [43] exit 1 in 0.05 secs.
+  13.5 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence11'"'"')'
+  13.5  44 | Traceback (most recent call last):
+  13.5  44 |   File "<string>", line 1, in <module>
+  13.5  44 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.5 TEL | [44] exit 1 in 0.05 secs.
+  13.6 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence12'"'"')'
+  13.7  45 | Traceback (most recent call last):
+  13.7  45 |   File "<string>", line 1, in <module>
+  13.7  45 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.7 TEL | [45] exit 1 in 0.05 secs.
+  13.8 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence13'"'"')'
+  13.8  32 | Starting server with Python version 3.6.5
+  13.8  32 |  s: latency control setting = True
+  13.8  46 | Traceback (most recent call last):
+  13.8  46 |   File "<string>", line 1, in <module>
+  13.8  46 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  13.8 TEL | [46] exit 1 in 0.05 secs.
+  13.9  32 |  s: available routes:
+  13.9  32 |  s:   2/100.96.0.0/11
+  13.9  32 | c : Connected.
+  13.9  32 | firewall manager: setting up.
+  13.9  32 | >> pfctl -s Interfaces -i lo -v
+  13.9  32 | >> pfctl -s all
+  13.9  32 | >> pfctl -a sshuttle6-12300 -f /dev/stdin
+  13.9  32 | >> pfctl -E
+  13.9  32 | >> pfctl -s Interfaces -i lo -v
+  13.9  32 | >> pfctl -s all
+  13.9 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence14'"'"')'
+  13.9  32 | >> pfctl -a sshuttle-12300 -f /dev/stdin
+  14.0  32 | >> pfctl -E
+  14.0  47 | Traceback (most recent call last):
+  14.0  47 |   File "<string>", line 1, in <module>
+  14.0  47 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  14.0 TEL | [47] exit 1 in 0.05 secs.
+  14.1 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence15'"'"')'
+  14.1  48 | Traceback (most recent call last):
+  14.1  48 |   File "<string>", line 1, in <module>
+  14.1  48 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  14.1 TEL | [48] exit 1 in 0.05 secs.
+  14.2 TEL | [49] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence16'"'"')'
+  14.3  49 | Traceback (most recent call last):
+  14.3  49 |   File "<string>", line 1, in <module>
+  14.3  49 | socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+  14.3 TEL | [49] exit 1 in 0.05 secs.
+  14.4 TEL | [50] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence17'"'"')'
+  14.4  32 | c : DNS request from ('172.18.70.245', 52867) to None: 37 bytes
+  14.5  24 | 2018-11-02T21:50:47+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  14.5  24 | 2018-11-02T21:50:47+0000 [stdout#info] Result for b'hellotelepresence17' is ['127.0.0.1']
+  14.6 TEL | [51] Capturing: python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence18'"'"')'
+  14.6  32 | c : DNS request from ('172.18.70.245', 62785) to None: 37 bytes
+  14.6  24 | 2018-11-02T21:50:47+0000 [stdout#info] Result for b'hellotelepresence18' is ['127.0.0.1']
+  14.6 TEL | END SPAN vpn.py:276(connect_sshuttle,sshuttle-wait)    2.8s
+  14.6 TEL | END SPAN vpn.py:235(connect_sshuttle)    2.8s
+  15.3 TEL | Everything launched. Waiting to exit...
+  15.3 TEL | BEGIN SPAN __init__.py:530(wait_for_exit)
+  22.3  32 | c : DNS request from ('172.18.70.245', 53112) to None: 69 bytes
+  22.3  32 | c : DNS request from ('172.18.70.245', 62979) to None: 69 bytes
+  22.3  24 | 2018-11-02T21:50:55+0000 [stdout#info] AAAA query, sending back A instead: b'api.allowing-antelope.platform.testing.opengov.zone'
+  22.3  24 | 2018-11-02T21:50:55+0000 [stdout#info] A query: b'api.allowing-antelope.platform.testing.opengov.zone'
+  22.4  24 | 2018-11-02T21:50:55+0000 [stdout#info] A query: b'api.allowing-antelope.platform.testing.opengov.zone'
+  22.4  24 | 2018-11-02T21:50:55+0000 [stdout#info] Result for b'api.allowing-antelope.platform.testing.opengov.zone' is ['35.161.86.124', '52.26.112.7', '54.149.87.61']
+  22.4  24 | 2018-11-02T21:50:55+0000 [stdout#info] Result for b'api.allowing-antelope.platform.testing.opengov.zone' is ['54.149.87.61', '52.26.112.7', '35.161.86.124']
+  28.9 TEL | Main process (bash --norc)
+  28.9 TEL |  exited with code 0.
+  28.9 TEL | END SPAN __init__.py:530(wait_for_exit)   13.6s
+  28.9 TEL | Success. Starting cleanup.
+  28.9 >>> | Exit cleanup in progress
+  28.9 TEL | (Cleanup) Terminate local process
+  28.9 TEL | (Cleanup) Unmount remote filesystem
+  28.9 TEL | [52] Capturing: umount -f /tmp/tel-bxn90xtw/fs
+  29.0 TEL | (Cleanup) Delete new deployment
+  29.0 TEL | [53] Capturing: kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace convox delete --ignore-not-found svc,deploy --selector=telepresence=75fff44fd92647339c2a68eb71a202e8
+  29.1  32 | c : DNS request from ('172.18.70.245', 63036) to None: 69 bytes
+  29.1  32 | c : DNS request from ('172.18.70.245', 57916) to None: 69 bytes
+  29.1  24 | 2018-11-02T21:51:02+0000 [stdout#info] AAAA query, sending back A instead: b'api.allowing-antelope.platform.testing.opengov.zone'
+  29.1  24 | 2018-11-02T21:51:02+0000 [stdout#info] A query: b'api.allowing-antelope.platform.testing.opengov.zone'
+  29.1  24 | 2018-11-02T21:51:02+0000 [stdout#info] A query: b'api.allowing-antelope.platform.testing.opengov.zone'
+  29.1  24 | 2018-11-02T21:51:02+0000 [stdout#info] Result for b'api.allowing-antelope.platform.testing.opengov.zone' is ['35.161.86.124', '52.26.112.7', '54.149.87.61']
+  29.1  24 | 2018-11-02T21:51:02+0000 [stdout#info] Result for b'api.allowing-antelope.platform.testing.opengov.zone' is ['35.161.86.124', '54.149.87.61', '52.26.112.7']
+  30.7 TEL | [53] captured in 1.67 secs.
+  30.7 TEL | (Cleanup) Kill background items
+  30.7 TEL | Killing BackgroundProcess [32] sshuttle
+  30.7  32 | >> pfctl -a sshuttle6-12300 -F all
+  30.7 TEL | Killing BackgroundProcess [29] SSH port forward (socks and proxy poll)
+  30.7 TEL | [29] exit 0
+  30.7 TEL | Killing BackgroundThread Web server for proxy poll
+  30.7  32 | >> pfctl -X 17996478801819003543
+  30.7  32 | >> pfctl -a sshuttle-12300 -F all
+  30.7  32 | >> pfctl -X 17996478801938929847
+  30.7 TEL | [32] exit -15
+  30.9 TEL | [54] Running: sudo -n echo -n
+  31.1 TEL | Killing BackgroundProcess [25] kubectl port-forward
+  31.1 TEL | [25] exit -15
+  31.1 TEL | Killing BackgroundProcess [24] kubectl logs
+  31.1 TEL | [24] exit -15
+  31.1 TEL | Killing BackgroundThread sudo privileges holder
+  31.9 TEL | (sudo privileges holder thread exiting)
+  31.9 TEL | (Cleanup) Stop time tracking
+  31.9 TEL | END SPAN main.py:41(main)   31.9s
+  31.9 TEL | SPAN SUMMARY:
+  31.9 TEL |   31.9s main.py:41(main)
+  31.9 TEL |    0.7s   startup.py:58(__init__)
+  31.9 TEL |    0.2s     2 kubectl version --short
+  31.9 TEL |    0.1s     3 kubectl config current-context
+  31.9 TEL |    0.1s     4 kubectl config view -o json
+  31.9 TEL |    0.3s     5 kubectl get ns convox
+  31.9 TEL |    0.0s   6 ssh -V
+  31.9 TEL |    0.0s   7 sudo -n echo -n
+  31.9 TEL |    0.3s   8 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.7s   deployment.py:44(create_new_deployment)
+  31.9 TEL |    0.3s     9 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.3s     10 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    6.1s   remote.py:149(get_remote_info)
+  31.9 TEL |    0.3s     remote.py:73(get_deployment_json)
+  31.9 TEL |    0.3s       11 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.3s     12 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    5.6s     remote.py:111(wait_for_pod)
+  31.9 TEL |    0.2s       13 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       14 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       15 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.3s       16 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.3s       17 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.4s       18 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       19 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       20 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       21 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.2s       22 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.3s       23 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    1.0s   __init__.py:38(connect)
+  31.9 TEL |    0.0s     26 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+  31.9 TEL |    0.0s     27 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+  31.9 TEL |    0.5s     28 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+  31.9 TEL |    1.8s   remote_env.py:65(get_remote_env)
+  31.9 TEL |    1.8s     30 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.5s   mount.py:32(mount_remote_volumes)
+  31.9 TEL |    0.5s     31 sshfs -p 56790 -F /dev/null -o StrictHostKeyChecking=no -o UserKnownHostsFile
+  31.9 TEL |    2.8s   vpn.py:235(connect_sshuttle)
+  31.9 TEL |    0.0s     vpn.py:79(get_proxy_cidrs)
+  31.9 TEL |    2.8s     vpn.py:276(connect_sshuttle,sshuttle-wait)
+  31.9 TEL |    0.0s       33 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence0'"'"')
+  31.9 TEL |    0.0s       34 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence1'"'"')
+  31.9 TEL |    0.0s       35 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence2'"'"')
+  31.9 TEL |    0.0s       36 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence3'"'"')
+  31.9 TEL |    0.0s       37 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence4'"'"')
+  31.9 TEL |    0.0s       38 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence5'"'"')
+  31.9 TEL |    0.0s       39 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence6'"'"')
+  31.9 TEL |    0.0s       40 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence7'"'"')
+  31.9 TEL |    0.0s       41 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence8'"'"')
+  31.9 TEL |    0.0s       42 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence9'"'"')
+  31.9 TEL |    0.0s       43 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence10'"'"'
+  31.9 TEL |    0.0s       44 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence11'"'"'
+  31.9 TEL |    0.0s       45 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence12'"'"'
+  31.9 TEL |    0.0s       46 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence13'"'"'
+  31.9 TEL |    0.0s       47 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence14'"'"'
+  31.9 TEL |    0.0s       48 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence15'"'"'
+  31.9 TEL |    0.0s       49 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence16'"'"'
+  31.9 TEL |    0.1s       50 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence17'"'"'
+  31.9 TEL |    0.1s       51 python3 -c 'import socket; socket.gethostbyname('"'"'hellotelepresence18'"'"'
+  31.9 TEL |   13.6s   __init__.py:530(wait_for_exit)
+  31.9 TEL |    0.1s   52 umount -f /tmp/tel-bxn90xtw/fs
+  31.9 TEL |    1.7s   53 kubectl --context allowing-antelope.platform.testing.opengov.zone --namespace
+  31.9 TEL |    0.0s   54 sudo -n echo -n
+  31.9 TEL | (Cleanup) Remove temporary directory
+  32.0 TEL | (Cleanup) Save caches

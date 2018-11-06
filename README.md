@@ -81,22 +81,22 @@ For detailed sample application use case, please follow tutorial in [tutorial](t
 ![Alt text](images/telepresence_use_case_01.png?raw=true "OpenGov")
 
 2. Create new service as a container in remote cluster and forward to service in localhost:
-For detailed sample application use case, please follow tutorial in [tutorial](uc2.md).
+For detailed sample application use case, please follow tutorial in [tutorial](telepresence_use_case_02.md).
 
-![Alt text](images/telepresence_use_case_01.png?raw=true "OpenGov")
+![Alt text](images/telepresence_use_case_02.png?raw=true "OpenGov")
 
 3. Swap service as a container in remote cluster with service in localhost:
-For detailed sample application use case, please follow tutorial in [tutorial](uc3.md).
+For detailed sample application use case, please follow tutorial in [tutorial](telepresence_use_case_03.md).
 
 ![Alt text](images/telepresence_use_case_03.png?raw=true "OpenGov")
 
 4. Swap service as a container in remote cluster with service as a container in localhost:
-For detailed sample application use case, please follow tutorial in [tutorial](uc4.md).
+For detailed sample application use case, please follow tutorial in [tutorial](telepresence_use_case_04.md).
 
 ![Alt text](images/telepresence_use_case_04.png?raw=true "OpenGov")
 
 5. Swap service_A in remote cluster with service in localhost_A and service_B in remote cluster with service in localhost_B :
-For detailed sample application use case, please follow tutorial in [tutorial](uc5.md).
+For detailed sample application use case, please follow tutorial in [tutorial](telepresence_use_case_05.md).
 
 
 #### Advantages
