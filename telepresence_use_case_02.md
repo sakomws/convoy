@@ -7,13 +7,9 @@ This use case shows how  to facilitate local development with services running i
 
 1. Install latest [Kubectl client](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
-2. Install latest [Docker](https://docs.docker.com/).
+2. Install latest [Telepresence](https://www.telepresence.io/reference/install).
 
-3. Install latest [Telepresence](https://www.telepresence.io/reference/install).
-
-4. Install latest [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
-
-5. Install latest [Go language](https://golang.org/doc/install).
+3. Install latest [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
 ### Architecture
 The diagram below depicts how to enable multi cluster development in k8s:
@@ -23,7 +19,7 @@ The diagram below depicts how to enable multi cluster development in k8s:
 
 ### Getting Started
 
-Sample application that shows how to create new service as a container in remote cluster and forward to service in localhost.
+Sample application that shows how to create new service as a container in remote cluster and forward requests to service in localhost.
 
 #### Localhost
 
@@ -33,7 +29,7 @@ telepresence --new-deployment hello-world --namespace default --expose 9000
 python3 helloworld.py
 ```
 
-2. Make sure a new helloworld deployment created:
+2. Make sure a new hello-world deployment created:
 ```
 kubectl get pods,svc -n default
 ```
@@ -46,7 +42,7 @@ Note: To stop telepresence, please type 'exit' in terminal, which will automatic
 
 3. In another terminal, make sure can reach hello-world service running in remote cluster which  forwards requests to local server:
 ```
-curl http://hello-world.convox:9000/
+curl http://hello-world.default:9000/
 ```
 ```
 Hello, world!
@@ -62,11 +58,7 @@ python3 helloworld.py
 
 #### Uninstall
 
-1. Uninstall backend application in remote cluster:
-```
-kubectl delete -f backend.yaml,frontend.yaml
-```
-2. To stop Telepresence, type 'exit' or CTRL-D in terminal telepresence is active.
+1. To stop Telepresence, type 'exit' or CTRL-D in terminal telepresence is active.
 
 ### Authors
 
