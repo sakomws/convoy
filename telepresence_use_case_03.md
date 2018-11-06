@@ -1,21 +1,18 @@
 
-# Use case 01
+# Use case 03
 
-This use case shows how  to facilitate local frontend development with backend run in remote cluster without any user impact.
+This use case shows how  to facilitate local frontend development with backend run in remote cluster.
 
 ### Prerequisities
 
 1. Install latest [Kubectl client](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
-2. Install latest [Docker](https://docs.docker.com/).
+2. Install latest [Telepresence](https://www.telepresence.io/reference/install).
 
-3. Install latest [Telepresence](https://www.telepresence.io/reference/install).
+3. Install latest [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
-4. Install latest [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
-5. Install latest [Go language](https://golang.org/doc/install).
-
-### Architecture 
+### Architecture
 The diagram below depicts how to enable multi cluster development in k8s:
 
 ![Alt text](images/telepresence_use_case_03.png?raw=true "OpenGov")
@@ -23,18 +20,18 @@ The diagram below depicts how to enable multi cluster development in k8s:
 
 ### Getting Started
 
-Sample application that shows how to connect a frontend in development with a production backend run in remote cluster.
+Sample application that shows how to swap service in remote cluster with service running in local host.
 
 #### Remote Cluster or Minikube
 
 1. Deploy backend and frontend applications in remote cluster:
 ```
-kubectl apply -f backend.yaml,frontend.yaml 
+kubectl apply -f backend.yaml,frontend.yaml
 ```
 
-2. Make sure fe-*, be-* pods and services are up and running :
+2. Make sure frontend-*, backend-* pods and services are up and running:
 ```
-kubectl get pods,svc 
+kubectl get pods,svc
 ```
 ```
 NAME                            READY   STATUS    RESTARTS   AGE
@@ -49,43 +46,29 @@ service/fe-srv   ClusterIP   100.70.86.99    <none>        80/TCP    4m10s
 
 #### Localhost
 
-1. Create new service in remote cluster and forward to local server:
+1. Swap frontend service in remote cluster to forward requests to local server:
 ```
 telepresence --swap-deployment frontend --namespace default  --run-shell
-python3 -m http.server 8000 
+python3 -m http.server 8000
 ```
 
-OR: 
+OR:
 
 ```
 telepresence --swap-deployment frontend --namespace default --expose 8000 \
---run python3 -m http.server 8000 
+--run python3 -m http.server 8000
 ```
 
-
-2. Make sure a new frontend deployment created in place of old one:
+2. Make sure a new frontend deployment created in place of existing one:
 ```
 kubectl get pods,svc -n default
 ```
 ```
-NAME                                                       READY   STATUS    RESTARTS   AGE
-hello-world-5b976dc979-zk7qv   1/1       Running   0          9s
+NAME                                                         READY     STATUS    RESTARTS   AGE
+backend-59fd8d4bb7-69bxc                                     1/1       Running   0          4d
+frontend-a59bdbf638fe4d36904aed7b7d4c8771-55988dd464-xfnsg   1/1       Running   0          24s
 ```
-
-```
-python3 -m http.server 8000
-```
-```
-T: Forwarding remote port 8000 to local port 8000.
-
-Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
-127.0.0.1 - - [02/Nov/2018 13:45:40] "GET / HTTP/1.1" 200 -
-```
-
-
-Note: To stop telepresence, please type 'exit' in terminal, which will automatically delete telepresence deployment from remote cluster.
-
-3. In another terminal, make sure can reach from backend services running in remote cluster to frontend service in localhost: 
+3.  In another terminal, make sure can reach frontend service running in remote cluster which forwards requests to local server:
 ```
 curl http://frontend-srv.default:8000/
 ```
@@ -119,7 +102,17 @@ curl http://frontend-srv.default:8000/
 </html>
 ```
 
+4. Make sure requests appear in local server logs:
+```
+python3 -m http.server 8000
+```
+```
+T: Forwarding remote port 8000 to local port 8000.
 
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+127.0.0.1 - - [02/Nov/2018 13:45:40] "GET / HTTP/1.1" 200 -
+```
+Note: Exiting telepresence will restore frontend service running in remote cluster.
 
 #### Uninstall
 
